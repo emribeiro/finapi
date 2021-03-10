@@ -38,6 +38,10 @@ app.get("/statement/:cpf", (request, response)=>{
 
     const customer = customers.find(customer => customer.cpf === cpf);
 
+    if(!customer){
+        return response.status(404).send({error: "Customer not Found"});
+    }
+
     return response.status(200).send(customer.statement);
 });
 
