@@ -11,8 +11,8 @@ Criado exclusivamente para motivos de estudos e aprofundamento dos conhecimentos
 - [X] Deve ser possível realizar um depósito
 - [X] Deve ser possível realizar um saque
 - [X] Deve ser possível buscar um extrato bancário do cliente por data
-- [] Deve ser possível atualizar dados da conta do cliente
-- [] Deve ser possível obtar dados da conta do cliente
+- [X] Deve ser possível atualizar dados da conta do cliente
+- [X] Deve ser possível obtar dados da conta do cliente
 - [] Deve ser possível deletar uma conta
 
 
