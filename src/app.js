@@ -53,6 +53,22 @@ app.get("/statement/:cpf", verifyExistenceAccount, (request, response)=>{
     return response.status(200).send(customer.statement);
 });
 
+app.get("/statement/date/:cpf", verifyExistenceAccount, (request, response)=>{
+    const { customer } = request;
+    const { date } = request.query;
+
+    const dateToFind = new Date(date + " 00:00");
+
+    const statementsFound = customer.statement.filter((statement) => statement.created_at.toDateString() === dateToFind.toDateString());
+
+    if(!statementsFound || statementsFound.length == 0){
+        return response.status(404).send({error: "Statements not found in Date!"})
+    }
+
+    return response.status(200).send(statementsFound);
+});
+
+
 app.post("/deposit/:cpf", verifyExistenceAccount, (request, response) => {
     const { customer } = request;
     const { description, amount } = request.body;
