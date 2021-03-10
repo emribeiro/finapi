@@ -53,6 +53,26 @@ app.get("/statement/:cpf", verifyExistenceAccount, (request, response)=>{
     return response.status(200).send(customer.statement);
 });
 
+app.post("/deposit/:cpf", verifyExistenceAccount, (request, response) => {
+    const { customer } = request;
+    const { description, amount } = request.body;
+
+
+    customer.amount += amount;
+
+    const statementOperation = {
+        description,
+        amount,
+        type: "credit",
+        created_at: new Date()
+    };
+
+    customer.statement.push(statementOperation);
+
+    return response.status(201).send(customer);
+
+});
+
 app.listen(3000, () =>{
     console.log("Aplication Started in port 3000");
 });
