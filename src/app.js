@@ -73,6 +73,33 @@ app.post("/deposit/:cpf", verifyExistenceAccount, (request, response) => {
 
 });
 
+
+app.post("/withdraw/:cpf", verifyExistenceAccount, (request, response) => {
+    const { customer } = request;
+    const { description, amount } = request.body;
+
+    if(customer.amount < amount){
+        return response.status(400).send({
+            error: "Insuficient Funds"
+        });
+    }
+
+    customer.amount -= amount;
+
+    const statementOperation = {
+        description,
+        amount,
+        type: "debit",
+        created_at: new Date()
+    };
+
+    customer.statement.push(statementOperation);
+
+    return response.status(201).send(customer);
+
+});
+
+
 app.listen(3000, () =>{
     console.log("Aplication Started in port 3000");
 });
