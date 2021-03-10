@@ -6,7 +6,7 @@ Criado exclusivamente para motivos de estudos e aprofundamento dos conhecimentos
 
 ### Requisitos:
 
-- [] Deve ser possível criar uma conta
+- [X] Deve ser possível criar uma conta
 - [] Deve ser possível buscar o extrato bancário do cliente
 - [] Deve ser possível realizar um depósito
 - [] Deve ser possível realizar um saque
