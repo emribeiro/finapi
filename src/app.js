@@ -37,7 +37,7 @@ app.post("/account", (request, response) =>{
         cpf,
         name,
         id: uuidV4(),
-        amount: 0,
+        balance: 0,
         statement: []
     };
 
@@ -59,6 +59,18 @@ app.get("/account/:cpf", verifyExistenceAccount, (request, response) => {
     const { customer } = request;
 
     return response.status(200).send(customer);
+});
+
+app.get("/account", (request, response) => {
+    return response.status(200).send(customers);
+});
+
+app.delete("/account/:cpf", verifyExistenceAccount, (request, response) => {
+    const { customer } = request;
+
+    customers.splice(customer, 1);
+
+    return response.status(200).send(customers);
 });
 
 app.get("/statement/:cpf", verifyExistenceAccount, (request, response)=>{
@@ -88,7 +100,7 @@ app.post("/deposit/:cpf", verifyExistenceAccount, (request, response) => {
     const { description, amount } = request.body;
 
 
-    customer.amount += amount;
+    customer.balance += amount;
 
     const statementOperation = {
         description,
@@ -114,7 +126,7 @@ app.post("/withdraw/:cpf", verifyExistenceAccount, (request, response) => {
         });
     }
 
-    customer.amount -= amount;
+    customer.balance -= amount;
 
     const statementOperation = {
         description,
@@ -127,6 +139,12 @@ app.post("/withdraw/:cpf", verifyExistenceAccount, (request, response) => {
 
     return response.status(201).send(customer);
 
+});
+
+app.get("/balance/:cpf", verifyExistenceAccount, (request, response) => {
+    const { customer } = request;
+
+    return response.status(200).send(customer.balance);
 });
 
 
